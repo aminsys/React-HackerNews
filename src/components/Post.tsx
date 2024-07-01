@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { convert } from 'html-to-text';
+import Microlink from '@microlink/react';
 
-type PostProps = {
+interface PostProps {
     readonly id: number
     readonly created_at: string
     readonly title: string
@@ -13,19 +14,22 @@ type PostProps = {
     children?: PostProps[]
 }
 
+type postId = {
+    id: number
+}
 
-export default function Post() {
 
-    const [post, setPost] = useState<PostProps | null>({} as PostProps);
+export default function Post(id: postId) {
 
-    const getPost = () => {
-        fetch("http://hn.algolia.com/api/v1/items/40803536")
+    const [post, setPost] = useState<PostProps>({} as PostProps);
+
+    useEffect(() => {
+        const getPost = async () => {
+            fetch("http://hn.algolia.com/api/v1/items/" + id.id)
             .then((response) => response.json())
             .then((data) => { setPost(data); }) // Sets the result into post
             .catch((err) => console.log("An error occured: " + err))
-    }
-
-    useEffect(() => {
+        }
         getPost();
     }, []) // Only call the api once
 
@@ -33,23 +37,24 @@ export default function Post() {
             backgroundColor: 'lightgray',
             padding: '10px',
             margin: '20px',
-            textAlign: 'left',
-            top: '10px'
+            textAlign: 'left' as const,
+            width: '100%'
         };
 
         const commentStyle = {
-        backgroundColor: 'lightgray',
-        padding: '10px',
-        margin: '20px',
-        border: '1px solid black',
-        textAlign: 'left'
+            backgroundColor: 'lightgray',
+            padding: '10px',
+            margin: '20px',
+            border: '1px solid black',
+            textAlign: 'left' as 'left'
         };
 
     return (
-        <div style={postStyle}>
+        <div style={postStyle} onClick={() => console.log("Clicked")}>
+            
             <h1>{post.title}</h1>
-            <h4>{convert(post.text)}</h4>
-            <div>
+            <h4>{post.text !== null ? convert(post.text) : <span><Microlink url={post.url}></Microlink></span>}</h4>
+            {/* <div>
                 <h4>{post?.children?.length !== 0 ? "Comments:" : ""}</h4>
                 {post?.children?.map((comment, key) =>
                     <div key={key} style={commentStyle}>
@@ -59,7 +64,7 @@ export default function Post() {
                     </div>
 
                 )}
-            </div>
+            </div> */}
         </div>
     );
 }
