@@ -35,7 +35,7 @@ export default function Post(id: postId) {
     }, []) // Only call the api once
 
     const postStyle = {
-        backgroundColor: 'lightgray',
+        backgroundColor: 'lightgray' as const,
         padding: '10px',
         margin: '20px',
         textAlign: 'left' as const,
@@ -43,36 +43,46 @@ export default function Post(id: postId) {
     };
 
     const commentStyle = {
-        backgroundColor: 'lightgray',
+        backgroundColor: 'lightgray' as const,
         padding: '10px',
         margin: '20px',
         border: '1px solid black',
         textAlign: 'left' as 'left'
     };
 
-    const urlPreviewStyle = {
-        textAlign: 'center' as const
+    const expandStyle = {
+        textAlign: 'right' as const,
+        fontSize: '200%',
+        fontWeight: 'bold',
+        cursor: 'pointer'
     }
 
     return (
-        <div style={postStyle} onClick={() => { isToggle(!toggle); }}>
+        <div style={postStyle}>
 
             <h1>{post.title}</h1>
-            <h5>{post.text !== null ? convert(post.text) : <span><Microlink url={post.url} size='normal' media='logo' contrast></Microlink></span>}</h5>
+            <h5>{post.text !== null ? 
+                        convert(post.text, {selectors: [ {selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] }) : 
+                        <span>
+                            <Microlink url={post.url} size='normal' media='logo' contrast='true'>
+                            </Microlink>
+                        </span>}
+            </h5>
+            <p>By: {post.author} - Posted: {new Date(post.created_at).toUTCString()} - Comments: {post.children?.length} - Points: {post.points}</p>
             { toggle ? 
                 <div>
+                    <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[-]</div>
                     <h5>{post?.children?.length !== 0 ? "Comments:" : ""}</h5>
                     {post?.children?.map((comment, key) =>
                         <div key={key} style={commentStyle}>
-                            <p>{convert(comment.text)}</p>
-                            <p>{comment.author}</p>
-                            <p>{new Date(comment.created_at).toUTCString()}</p>
+                            <p>{convert(comment.text, {selectors: [ {selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] })}</p>
+                            <br/>
+                            <p>By: {comment.author} - Posted: {new Date(comment.created_at).toUTCString()}</p>
                         </div>
 
                     )}
                 </div>
-                :
-                <div></div>
+                : <div>{post?.children?.length !== 0 ? <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[+]</div> : '' }</div>
             }
         </div>
     );
