@@ -8,8 +8,11 @@ import PostList from './components/PostList.tsx';
 function App() {
   return (
     <div>
-      <img src={logo} className="App-logo" alt="logo" width={100} />
-    
+      <div className='navbar'>
+        <img src={logo} className="App-logo" alt="logo" width={100} />
+        <h1>Hacker News - Y Combinator</h1>
+      </div>
+      
       <div className="App">
         <PostList />
       </div>
