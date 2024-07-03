@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { convert } from 'html-to-text';
-import Microlink from '@microlink/react';
 
 interface PostProps {
     readonly id: number
@@ -61,28 +60,27 @@ export default function Post(id: postId) {
         <div style={postStyle}>
 
             <h1>{post.title}</h1>
-            <h5>{post.text !== null ? 
-                        convert(post.text, {selectors: [ {selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] }) : 
-                        <span>
-                            <Microlink url={post.url} size='normal' media='logo' contrast='true'>
-                            </Microlink>
-                        </span>}
+            <h5>{post.text !== null ?
+                convert(post.text, { selectors: [{ selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] }) :
+                <span>
+                    <a href={post.url} target="_blank">{post.url}</a>
+                </span>}
             </h5>
             <p>By: {post.author} - Posted: {new Date(post.created_at).toUTCString()} - Comments: {post.children?.length} - Points: {post.points}</p>
-            { toggle ? 
+            {toggle ?
                 <div>
                     <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[-]</div>
                     <h5>{post?.children?.length !== 0 ? "Comments:" : ""}</h5>
                     {post?.children?.map((comment, key) =>
                         <div key={key} style={commentStyle}>
-                            <p>{convert(comment.text, {selectors: [ {selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] })}</p>
-                            <br/>
+                            <p>{convert(comment.text, { selectors: [{ selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] })}</p>
+                            <br />
                             <p>By: {comment.author} - Posted: {new Date(comment.created_at).toUTCString()}</p>
                         </div>
 
                     )}
                 </div>
-                : <div>{post?.children?.length !== 0 ? <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[+]</div> : '' }</div>
+                : <div>{post?.children?.length !== 0 ? <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[+]</div> : ''}</div>
             }
         </div>
     );
