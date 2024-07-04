@@ -24,7 +24,7 @@ export default function PostList() {
         backgroundColor: 'gray'
     };
 
-    const firstIds = ids.splice(0, 10);
+    const firstIds = ids.splice(0, 20);
 
     return (
         

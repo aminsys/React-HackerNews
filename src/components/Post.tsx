@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { convert } from 'html-to-text';
+import UrlPreview from './helpers/UrlPreview.tsx';
 
 interface PostProps {
     readonly id: number
     readonly created_at: string
     readonly title: string
     readonly author: string
-    url: null
+    url: string
     text: null
     points: number
     parent_id: null
@@ -15,6 +16,15 @@ interface PostProps {
 
 type postId = {
     id: number
+}
+const regexUrl = "/([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm";
+const replaceTextWithUrl = (text) => {
+    // var convertedText = convert(text, { selectors: [{ selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] })
+    // var newText = convertedText.replace(regexUrl, "<a href='$1'>$1</a>");
+    // var newText2 = newText.replace("/\n/g", "<br>");
+    // console.log(newText2.toString());
+    // return newText2.toString();
+    return convert(text, { selectors: [{ selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] });
 }
 
 
@@ -38,7 +48,8 @@ export default function Post(id: postId) {
         padding: '10px',
         margin: '20px',
         textAlign: 'left' as const,
-        width: '100%'
+        width: '100%',
+        whiteSpace: 'pre'
     };
 
     const commentStyle = {
@@ -60,12 +71,11 @@ export default function Post(id: postId) {
         <div style={postStyle}>
 
             <h1>{post.title}</h1>
-            <h5>{post.text !== null ?
-                convert(post.text, { selectors: [{ selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] }) :
-                <span>
-                    <a href={post.url} target="_blank">{post.url}</a>
-                </span>}
-            </h5>
+            <p>{post.text !== null ?
+                replaceTextWithUrl(post?.text) :
+                <a href={post?.url}>{post?.url}</a>
+            }
+            </p>
             <p>By: {post.author} - Posted: {new Date(post.created_at).toUTCString()} - Comments: {post.children?.length} - Points: {post.points}</p>
             {toggle ?
                 <div>
