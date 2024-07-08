@@ -17,15 +17,6 @@ interface PostProps {
 type postId = {
     id: number
 }
-const regexUrl = "/([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm";
-const replaceTextWithUrl = (text) => {
-    // var convertedText = convert(text, { selectors: [{ selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] })
-    // var newText = convertedText.replace(regexUrl, "<a href='$1'>$1</a>");
-    // var newText2 = newText.replace("/\n/g", "<br>");
-    // console.log(newText2.toString());
-    // return newText2.toString();
-    return convert(text, { selectors: [{ selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] });
-}
 
 
 export default function Post(id: postId) {
@@ -49,7 +40,7 @@ export default function Post(id: postId) {
         margin: '20px',
         textAlign: 'left' as const,
         width: '100%',
-        whiteSpace: 'pre'
+        whiteSpace: 'pre-wrap'    
     };
 
     const commentStyle = {
@@ -72,8 +63,9 @@ export default function Post(id: postId) {
 
             <h1>{post.title}</h1>
             <p>{post.text !== null ?
-                replaceTextWithUrl(post?.text) :
-                <a href={post?.url}>{post?.url}</a>
+                convert(post?.text) :
+                // <a href={post.url}>{post.url}</a>
+                <UrlPreview url={post.url} />
             }
             </p>
             <p>By: {post.author} - Posted: {new Date(post.created_at).toUTCString()} - Comments: {post.children?.length} - Points: {post.points}</p>

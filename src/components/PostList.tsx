@@ -16,7 +16,8 @@ export default function PostList() {
                 .catch((err) => console.log("Error: " + err));
         };
 
-        getPostIds("topstories");
+        // newstories, beststories, topstories
+        getPostIds("topstories"); //askstories, showstories, jobstories,
     }, []);
 
     const postListStyle = {
@@ -24,7 +25,7 @@ export default function PostList() {
         backgroundColor: 'gray'
     };
 
-    const firstIds = ids.splice(0, 20);
+    const firstIds = ids.splice(0, 5);
 
     return (
         
