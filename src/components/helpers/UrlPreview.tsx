@@ -23,8 +23,9 @@ export default function UrlPreview(url: props) {
             fetch("https://api.linkpreview.net", {
                 method: "POST",
                 headers: {
-                    "X-Linkpreview-Api-Key": key
-                },
+                    'X-Linkpreview-Api-Key': key,
+                    'Content-Type': 'application/json'
+                } as any,
                 mode: "cors",
                 body: JSON.stringify(data)
             })
@@ -39,7 +40,7 @@ export default function UrlPreview(url: props) {
     return (
         <div className="url-preview">
             <a href={urlPreviewObj.url} target='_blank'>
-                <img src={urlPreviewObj.image} alt="logo image" />
+                <img src={urlPreviewObj.image} />
                 <h3>{urlPreviewObj.title}</h3>
                 <p>{urlPreviewObj.description}</p>
                 <a href={urlPreviewObj.url}>{urlPreviewObj.url}</a>

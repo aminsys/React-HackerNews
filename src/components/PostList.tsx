@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Post from './Post.tsx';
+import Post from './Post';
 
 
 export default function PostList() {
@@ -9,7 +9,7 @@ export default function PostList() {
     const [ids, setIds] = useState([]);
 
     useEffect(() => {
-        const getPostIds = async (type) => {
+        const getPostIds = async (type : string) => {
             fetch('https://hacker-news.firebaseio.com/v0/' + type + '.json?print=pretty')
                 .then((response) => response.json())
                 .then((data) => setIds(data))

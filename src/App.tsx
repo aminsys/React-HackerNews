@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import Post from './components/Post.tsx';
-import PostList from './components/PostList.tsx';
+import Post from './components/Post';
+import PostList from './components/PostList';
 
 
 function App() {

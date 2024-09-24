@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { convert } from 'html-to-text';
-import UrlPreview from './helpers/UrlPreview.tsx';
+import UrlPreview from './helpers/UrlPreview';
 
 interface PostProps {
     readonly id: number
@@ -8,7 +8,7 @@ interface PostProps {
     readonly title: string
     readonly author: string
     url: string
-    text: null
+    text: string
     points: number
     parent_id: null
     children?: PostProps[]
@@ -63,7 +63,7 @@ export default function Post(id: postId) {
 
             <h1>{post.title}</h1>
             <p>{post.text !== null ?
-                convert(post?.text) :
+                convert(post.text) :
                 // <a href={post.url}>{post.url}</a>
                 <UrlPreview url={post.url} />
             }

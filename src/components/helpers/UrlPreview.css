@@ -27,6 +27,7 @@
     overflow: hidden; /* Hide overflowing text with ellipsis */
     text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
     line-height: 1.2; /* Adjust line spacing for readability */
+    font-size: initial;
   }
   
 
