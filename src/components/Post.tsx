@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { convert } from 'html-to-text';
 import UrlPreview from './helpers/UrlPreview';
+import Comment from './Comment';
+
 
 interface PostProps {
     readonly id: number
@@ -21,8 +23,8 @@ type postId = {
 
 export default function Post(id: postId) {
 
-    const [toggle, isToggle] = useState(false);
-    const [post, setPost] = useState<PostProps>({} as PostProps);
+    const [toggle, isToggle] = useState(false)
+    const [post, setPost] = useState<PostProps>({} as PostProps)
 
     useEffect(() => {
         const getPost = async () => {
@@ -33,7 +35,7 @@ export default function Post(id: postId) {
         }
         getPost();
     }, []) // Only call the api once
-
+    
     const postStyle = {
         backgroundColor: 'lightgray' as const,
         padding: '10px',
@@ -41,14 +43,6 @@ export default function Post(id: postId) {
         textAlign: 'left' as const,
         width: '100%',
         whiteSpace: 'pre-wrap'    
-    };
-
-    const commentStyle = {
-        backgroundColor: 'lightgray' as const,
-        padding: '10px',
-        margin: '20px',
-        border: '1px solid black',
-        textAlign: 'left' as 'left'
     };
 
     const expandStyle = {
@@ -73,14 +67,7 @@ export default function Post(id: postId) {
                 <div>
                     <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[-]</div>
                     <h5>{post?.children?.length !== 0 ? "Comments:" : ""}</h5>
-                    {post?.children?.map((comment, key) =>
-                        <div key={key} style={commentStyle}>
-                            <p>{convert(comment.text, { selectors: [{ selector: 'a', options: { hideLinkHrefIfSameAsText: true } }] })}</p>
-                            <br />
-                            <p>By: {comment.author} - Posted: {new Date(comment.created_at).toUTCString()}</p>
-                        </div>
-
-                    )}
+                    <Comment comments={post.children}></Comment>
                 </div>
                 : <div>{post?.children?.length !== 0 ? <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[+]</div> : ''}</div>
             }
