@@ -20,11 +20,22 @@ type postId = {
     id: number
 }
 
+function commentCounter(post: PostProps) : number {
+    let totalComments = 0;
+    post.children?.forEach(c => {
+        if(Array.isArray(c.children)){
+            totalComments = totalComments + c.children.length + commentCounter(c)
+        } 
+    });
+    return totalComments
+}
+
 
 export default function Post(id: postId) {
 
     const [toggle, isToggle] = useState(false)
     const [post, setPost] = useState<PostProps>({} as PostProps)
+    let totalComments = 0;
 
     useEffect(() => {
         const getPost = async () => {
@@ -33,9 +44,13 @@ export default function Post(id: postId) {
                 .then((data) => { setPost(data); }) // Sets the result into post
                 .catch((err) => console.log("An error occured: " + err))
         }
-        getPost();
+        getPost()
     }, []) // Only call the api once
     
+    if(post.children){
+        totalComments += post.children?.length + commentCounter(post)
+    }
+
     const postStyle = {
         backgroundColor: 'lightgray' as const,
         padding: '10px',
@@ -62,11 +77,11 @@ export default function Post(id: postId) {
                 <UrlPreview url={post.url} />
             }
             </p>
-            <p>By: {post.author} - Posted: {new Date(post.created_at).toUTCString()} - Comments: {post.children?.length} - Points: {post.points}</p>
+            <p>By: {post.author} - Posted: {new Date(post.created_at).toUTCString()} - Comments: {totalComments} - Points: {post.points}</p>
             {toggle ?
                 <div>
                     <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[-]</div>
-                    <h5>{post?.children?.length !== 0 ? "Comments:" : ""}</h5>
+                    <h5>{post.children?.length !== 0 ? "Comments:" : ""}</h5>
                     <Comment comments={post.children}></Comment>
                 </div>
                 : <div>{post?.children?.length !== 0 ? <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[+]</div> : ''}</div>
