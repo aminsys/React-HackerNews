@@ -1,42 +1,66 @@
 .url-preview {
-    display: flex;
-    align-items: center;
-    padding: 10px; /* Adjust spacing as needed */
-    border-style: solid;
-    border-width: 1px;
-    border-color: gray;
-    border-radius: 15px;
-    background-color: whitesmoke;
-    width: 50%;
-  }
-  
-  .url-preview img {
-    width: 100%; /* Adjust image width */
-    height: 50%; /* Adjust image height */
-    object-fit: cover; /* Crop image to fit while maintaining aspect ratio */
-    margin-right: 10px; /* Adjust spacing between image and text */
-    border-radius: 10px;
-  }
-  
-  .url-preview a {
-    color: #197dcf; /* Twitter blue color */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold;
-    display: block; /* Make title display as a block for proper line breaks */
-    width: calc(100% - 10px); /* Account for image width and margins */
-    overflow: hidden; /* Hide overflowing text with ellipsis */
-    text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
-    line-height: 1.2; /* Adjust line spacing for readability */
-    font-size: initial;
-  }
-  
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  /* Adjust spacing as needed */
+  border-style: solid;
+  border-width: 1px;
+  border-color: gray;
+  border-radius: 15px;
+  background-color: whitesmoke;
+  width: 50%;
+}
 
-  .url-preview p {
-    font-size: 0.9em; /* Adjust description font size */
-    color: #888; /* Gray for description text */
-    margin-top: 5px; /* Add spacing between title and description */
-    display: block;
-    width: calc(100% - 10px); /* Account for image width and margins */
-    overflow: hidden; /* Hide overflowing text with ellipsis */
-    text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
+.url-preview img {
+  width: 100%;
+  /* Adjust image width */
+  height: 50%;
+  /* Adjust image height */
+  object-fit: cover;
+  /* Crop image to fit while maintaining aspect ratio */
+  margin-right: 10px;
+  /* Adjust spacing between image and text */
+  border-radius: 10px;
+}
+
+.url-preview a {
+  color: #197dcf;
+  /* Twitter blue color */
+  text-decoration: none;
+  /* Remove underline */
+  font-weight: bold;
+  display: block;
+  /* Make title display as a block for proper line breaks */
+  width: calc(100% - 10px);
+  /* Account for image width and margins */
+  overflow: hidden;
+  /* Hide overflowing text with ellipsis */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflowing text */
+  line-height: 1.2;
+  /* Adjust line spacing for readability */
+  font-size: initial;
+}
+
+
+.url-preview p {
+  font-size: 0.9em;
+  /* Adjust description font size */
+  color: #888;
+  /* Gray for description text */
+  margin-top: 5px;
+  /* Add spacing between title and description */
+  display: block;
+  width: calc(100% - 10px);
+  /* Account for image width and margins */
+  overflow: hidden;
+  /* Hide overflowing text with ellipsis */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflowing text */
+}
+
+@media (max-width: 600px) {
+  .url-preview {
+    width: 100%;
   }
+}
