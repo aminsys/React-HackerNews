@@ -21,7 +21,8 @@ type postId = {
 }
 
 function commentCounter(post: PostProps) : number {
-    let totalComments = 0;
+    let totalComments = 0
+
     post.children?.forEach(c => {
         if(Array.isArray(c.children)){
             totalComments = totalComments + c.children.length + commentCounter(c)
@@ -35,7 +36,7 @@ export default function Post(id: postId) {
 
     const [toggle, isToggle] = useState(false)
     const [post, setPost] = useState<PostProps>({} as PostProps)
-    let totalComments = 0;
+    let totalComments = 0
 
     useEffect(() => {
         const getPost = async () => {
