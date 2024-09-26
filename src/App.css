@@ -44,3 +44,17 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 600px) {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .App {
+    font-size: 100%;
+  }
+  .navbar {
+    font-size: medium;
+  }
+}

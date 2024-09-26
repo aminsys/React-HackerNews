@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { convert } from 'html-to-text';
 import UrlPreview from './helpers/UrlPreview';
 import Comment from './Comment';
-
+import {cleanHtml} from './helpers/HtmlCleaner'
 
 interface PostProps {
     readonly id: number
@@ -46,7 +45,7 @@ export default function Post(id: postId) {
                 .catch((err) => console.log("An error occured: " + err))
         }
         getPost()
-    }, []) // Only call the api once
+    }, [id.id]) // Only call the api once
     
     if(post.children){
         totalComments += post.children?.length + commentCounter(post)
@@ -72,12 +71,12 @@ export default function Post(id: postId) {
         <div style={postStyle}>
 
             <h1>{post.title}</h1>
-            <p>{post.text !== null ?
-                convert(post.text) :
+            <>{post.text !== null && post.text !== undefined ?
+                cleanHtml(post.text) :
                 // <a href={post.url}>{post.url}</a>
                 <UrlPreview url={post.url} />
             }
-            </p>
+            </>
             <p>By: {post.author} - Posted: {new Date(post.created_at).toUTCString()} - Comments: {totalComments} - Points: {post.points}</p>
             {toggle ?
                 <div>
