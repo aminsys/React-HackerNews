@@ -45,7 +45,7 @@ export default function Comment(comments: Comments) {
         {
             comments.comments?.map((comment, key) =>
                 <div key={key} style={commentStyle}>
-                    <p>{cleanHtml(comment.text)}</p>
+                    <div>{cleanHtml(comment.text)}</div>
                     <p style={posterInfoStyle}>By: {comment.author} - Posted: {new Date(comment.created_at).toUTCString()}</p>
                     {toggle && comment.children?.length !== 0 ?
                         <div>

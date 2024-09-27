@@ -1,12 +1,12 @@
 export function cleanHtml(rawHtml) {
     let formattedText = rawHtml.replace(/<p>/gm, '\n\n');
     formattedText = replaceHexaEntities(formattedText);
+    formattedText = formattedText.replace(/<a href="([^"]*)"[^>]*>[^<]*<\/a>/gm, '($1)');
     formattedText = formattedText.replace(/<[^>]+>/gm, '');
-
-    //formattedText = formattedText.replace(/<a href="[^"]*">([^<]*)<\/a>/gm, '<a href="{$1}">$1</a>');
     formattedText = formattedText.replace(/&quot;/gm, '"');
     formattedText = formattedText.replace(/&gt;/gm, '>');
     formattedText = formattedText.replace(/&lt;/gm, '<');
+    formattedText = formattedText.replace(/&amp;/gm, '&');
 
     return formattedText;
 }
