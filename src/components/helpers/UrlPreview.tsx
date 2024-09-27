@@ -35,12 +35,12 @@ export default function UrlPreview(url: props) {
         }
 
         getUrlPreview(url.url);
-    }, []);
+    }, [url.url]);
     
     return (
         <div className="url-preview">
-            <a href={urlPreviewObj.url} target='_blank'>
-                <img src={urlPreviewObj.image} />
+            <a href={urlPreviewObj.url} target={urlPreviewObj.url}>
+                <img src={urlPreviewObj.image} alt={"No image - " + urlPreviewObj.title} />
                 <h3>{urlPreviewObj.title}</h3>
                 <p>{urlPreviewObj.description}</p>
                 <a href={urlPreviewObj.url}>{urlPreviewObj.url}</a>
