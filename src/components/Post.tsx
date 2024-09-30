@@ -54,7 +54,6 @@ export default function Post(id: postId) {
     const postStyle = {
         backgroundColor: 'lightgray' as const,
         padding: '10px',
-        margin: '20px',
         textAlign: 'left' as const,
         width: '100%',
         whiteSpace: 'pre-wrap'    
