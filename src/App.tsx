@@ -9,7 +9,7 @@ function App() {
     <div>
       <div className='navbar'>
         <img src={logo} className="App-logo" alt="logo" width={100} />
-        <h1>Hacker News - Y Combinator</h1>
+        <h1>Reactified Hacker News</h1>
       </div>
       
       <div className="App">
