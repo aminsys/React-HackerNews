@@ -39,7 +39,7 @@ export default function Post(id: postId) {
 
     useEffect(() => {
         const getPost = async () => {
-            fetch("http://hn.algolia.com/api/v1/items/" + id.id)
+            fetch("https://hn.algolia.com/api/v1/items/" + id.id)
                 .then((response) => response.json())
                 .then((data) => { setPost(data); }) // Sets the result into post
                 .catch((err) => console.log("An error occured: " + err))
@@ -56,7 +56,8 @@ export default function Post(id: postId) {
         padding: '10px',
         textAlign: 'left' as const,
         width: '100%',
-        whiteSpace: 'pre-wrap'    
+        whiteSpace: 'pre-wrap',
+        border: '5px solid darkgray' 
     };
 
     const expandStyle = {

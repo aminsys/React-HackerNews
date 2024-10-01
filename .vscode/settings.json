@@ -1,0 +1,9 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/8f14b488-4a02-4e2e-9798-a08ca9ae50d8/resourceGroups/react-rg/providers/Microsoft.Web/sites/rhackernews",
+    "appService.deploySubpath": "build",
+    "appService.showBuildDuringDeployPrompt": false
+}
