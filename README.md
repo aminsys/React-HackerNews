@@ -1,4 +1,7 @@
-# Reactified Hacker News Web App - ⚠️ Work in progress ⚠️
+# Reactified Hacker News Web App - 
+# ⚠️ Work in progress ⚠️
+
+Visit this [link](https://rhackernews2.azurewebsites.net/) to view current progress.
 
 The aim of this project is to present the website [Hacker News](https://news.ycombinator.com/). The data is fetched from the [HN Search API](https://hn.algolia.com/api) together with firebase api via [HackerNews/API github](https://github.com/HackerNews/API?tab=readme-ov-file).
 
