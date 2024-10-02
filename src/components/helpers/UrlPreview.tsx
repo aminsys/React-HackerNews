@@ -39,12 +39,14 @@ export default function UrlPreview(url: props) {
     
     return (
         <div className="url-preview">
-            <a href={urlPreviewObj.url} target={urlPreviewObj.url}>
-                <img src={urlPreviewObj.image} alt={"No image\n"} />
+            { urlPreviewObj.description === 'Too many requests / rate limit exceeded' ?
+                <a href={url.url}>{url.url}</a> :
+                <a href={urlPreviewObj.url} target={urlPreviewObj.url}>
+                <img src={urlPreviewObj.image} alt={"No data\n"} />
                 <h3>{urlPreviewObj.title}</h3>
                 <p>{urlPreviewObj.description}</p>
                 <a href={urlPreviewObj.url}>{urlPreviewObj.url}</a>
-            </a>
+            </a>}
         </div>
     );
 }

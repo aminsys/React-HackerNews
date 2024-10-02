@@ -33,7 +33,23 @@
 .navbar {
   background-color: #e28b28;
   display: flex;
-  font-size: x-large;
+}
+
+.tab-link {
+  background-color: #e28b28;
+  border: 1px solid darkgray;
+  padding: 15px;
+  font-size: 15px;
+  cursor: pointer;
+  width: 16.666%;
+}
+
+.tab-link:hover {
+  background-color: #777;
+}
+
+.active {
+  background-color: #ffc55b;
 }
 
 @keyframes App-logo-spin {
