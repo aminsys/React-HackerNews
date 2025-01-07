@@ -1,8 +1,13 @@
+import sanitizeHtml from 'sanitize-html';
+
 export function cleanHtml(rawHtml) {
     let formattedText = rawHtml.replace(/<p>/gm, '\n\n');
     formattedText = replaceHexaEntities(formattedText);
     formattedText = formattedText.replace(/<a href="([^"]*)"[^>]*>[^<]*<\/a>/gm, '($1)');
-    formattedText = formattedText.replace(/<[^>]+>/gm, '');
+    formattedText = sanitizeHtml(formattedText, {
+        allowedTags: [],
+        allowedAttributes: {}
+    });
     formattedText = formattedText.replace(/&quot;/gm, '"');
     formattedText = formattedText.replace(/&gt;/gm, '>');
     formattedText = formattedText.replace(/&lt;/gm, '<');
