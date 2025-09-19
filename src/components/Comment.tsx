@@ -39,22 +39,22 @@ const posterInfoStyle = {
 
 export default function Comment(comments: Comments) {
 
-    const [toggle, isToggle] = useState(false)
+    const [expandedId, setExpandedId] = useState<number | null>(null)
 
     return (<div>
         {
-            comments.comments?.map((comment, key) =>
-                <div key={key} style={commentStyle}>
+            comments.comments?.map((comment) =>
+                <div key={comment.id} style={commentStyle}>
                     <div>{cleanHtml(comment.text)}</div>
-                    <p style={posterInfoStyle}>By: {comment.author} - Posted: {new Date(comment.created_at).toUTCString()}</p>
-                    {toggle && comment.children?.length !== 0 ?
+                    <p style={posterInfoStyle}>By: {comment.author} - Posted: {new Date(comment.created_at).toUTCString()} {comment.children?.length && comment.children?.length > 0 ? "- Replies: " + comment.children?.length : ''}</p>
+                    {expandedId === comment.id && comment.children?.length !== 0 ?
                         <div>
-                            <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[-]</div>
+                            <div style={expandStyle} onClick={() => { setExpandedId(null) }}>[-]</div>
                             <div>
                                 {comment.children && <Comment comments={comment.children} />}
                             </div>
                         </div>
-                        : <div>{comment.children?.length !== 0 ? <div style={expandStyle} onClick={() => { isToggle(!toggle); }}>[+]</div> : ''}</div>
+                        : <div>{comment.children?.length !== 0 ? <div style={expandStyle} onClick={() => { setExpandedId(comment.id); }}>[+]</div> : ''}</div>
                     }
                 </div>
             )
